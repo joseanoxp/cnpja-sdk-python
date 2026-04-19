@@ -60,7 +60,7 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-        run: echo "$PR_TITLE" | uv run cz check --message -
+        run: uv run cz check --message "$PR_TITLE"
 
       - name: Validate Branch Commits (Conventional Commits)
         if: github.event_name == 'pull_request'
