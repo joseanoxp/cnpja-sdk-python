@@ -1,0 +1,95 @@
+[project]
+name = "cnpja"
+version = "1.0.0"
+description = "SDK Python para a API CNPJá - Consulta de CNPJ, CPF e dados empresariais"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "CNPJá", email = "contato@cnpja.com" }
+]
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Typing :: Typed",
+]
+keywords = ["cnpj", "cpf", "api", "brasil", "empresa", "receita-federal"]
+
+dependencies = [
+    "httpx>=0.28.0,<1.0.0",
+    "pydantic>=2.9.0,<3.0.0",
+    "tenacity>=8.2.0,<10.0.0",
+    "typing-extensions>=4.11.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=5.0.0",
+    "mypy>=1.11.0",
+    "ruff>=0.6.0",
+    "respx>=0.22.0",
+    "pre-commit>=4.0.0",
+    "commitizen>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://cnpja.com"
+Documentation = "https://cnpja.com/docs"
+Repository = "https://github.com/joseanoxp/cnpja-sdk-python"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+package = true
+default-groups = ["dev"]
+required-version = ">=0.5"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cnpja"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = [
+    "--cov=src/cnpja",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src/cnpja"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "\\.\\.\\.",
+    "@overload",
+]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+version_provider = "pep621"

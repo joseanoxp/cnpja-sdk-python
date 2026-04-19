@@ -1,0 +1,72 @@
+version: "3"
+
+tasks:
+  setup:
+    desc: Install dependencies and git hooks
+    cmds:
+      - uv sync
+      - uv run pre-commit install --hook-type commit-msg --hook-type pre-push --hook-type pre-commit
+
+  format:
+    desc: Format Python code
+    cmd: uv run ruff format .
+
+  format:check:
+    desc: Check if Python code is formatted
+    cmd: uv run ruff format --check .
+
+  lint:
+    desc: Run linter
+    cmd: uv run ruff check .
+
+  lint:fix:
+    desc: Run linter with auto-fix
+    cmd: uv run ruff check --fix .
+
+  pre-commit:
+    desc: Run pre-commit hooks for the current tree
+    cmd: uv run pre-commit run --all-files --show-diff-on-failure
+
+  typecheck:
+    desc: Run type checker (mypy strict)
+    cmd: uv run mypy src/
+
+  test:
+    desc: Run tests
+    cmd: uv run pytest
+
+  coverage:html:
+    desc: Generate HTML coverage report at htmlcov/
+    cmd: uv run pytest --cov-report=html && echo "✅ open htmlcov/index.html"
+
+  qa:
+    desc: Run local quality gate (lockfile + lint + format + typecheck + tests + hooks)
+    cmds:
+      - task: lock:check
+      - task: lint
+      - task: format:check
+      - task: typecheck
+      - task: test
+      - task: pre-commit
+
+  lock:check:
+    desc: Verify uv.lock is up-to-date with pyproject.toml
+    cmd: uv lock --check
+
+  doctor:
+    desc: Check if all required tools are installed
+    silent: true
+    cmds:
+      - echo "🔍 Checking development environment..."
+      - echo ""
+
+      - cmd: uv --version > /dev/null 2>&1 && echo "✅ uv $(uv --version 2>&1 | cut -d' ' -f2)" || echo "❌ uv — install from https://docs.astral.sh/uv/"
+      - cmd: uv run python --version > /dev/null 2>&1 && echo "✅ $(uv run python --version 2>&1)" || echo "❌ Python — rode 'uv python install'"
+      - cmd: git --version > /dev/null 2>&1 && echo "✅ Git $(git --version 2>&1 | cut -d' ' -f3)" || echo "❌ Git"
+      - cmd: gh --version > /dev/null 2>&1 && echo "✅ gh CLI $(gh --version 2>&1 | head -1 | cut -d' ' -f3)" || echo "❌ gh CLI — install from https://cli.github.com/"
+      - cmd: task --version > /dev/null 2>&1 && echo "✅ Task $(task --version 2>&1)" || echo "❌ Task — install from https://taskfile.dev/"
+      - cmd: test -f .git/hooks/commit-msg && echo "✅ pre-commit hooks installed" || echo "❌ pre-commit hooks — run 'task setup'"
+      - cmd: test -d .venv && echo "✅ Dependencies installed" || echo "❌ Dependencies — run 'uv sync'"
+
+      - echo ""
+      - echo "Done."

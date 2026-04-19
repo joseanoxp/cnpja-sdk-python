@@ -1,0 +1,35 @@
+version: 2
+
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      timezone: "America/Sao_Paulo"
+    labels:
+      - "type: chore"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      production:
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      development:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      timezone: "America/Sao_Paulo"
+    labels:
+      - "type: ci"
+    commit-message:
+      prefix: "ci(deps)"
+    groups:
+      actions:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
