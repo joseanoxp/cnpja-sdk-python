@@ -24,6 +24,9 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# OpenAPI snapshots used during codegen (fetch from cnpja.com, never commit)
+schemas/
+
 # Local environment overrides
 .env
 .env.local
