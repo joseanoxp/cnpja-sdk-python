@@ -21,7 +21,7 @@ keywords = ["cnpj", "cpf", "api", "brasil", "empresa", "receita-federal"]
 
 dependencies = [
     "httpx>=0.28.0,<1.0.0",
-    "pydantic>=2.9.0,<3.0.0",
+    "pydantic>=2.13.3,<3.0.0",
     "tenacity>=8.2.0,<10.0.0",
     "typing-extensions>=4.11.0",
 ]
