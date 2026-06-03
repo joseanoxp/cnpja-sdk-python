@@ -29,13 +29,13 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=8.0.0",
-    "pytest-asyncio>=0.24.0",
+    "pytest-asyncio>=1.4.0",
     "pytest-cov>=5.0.0",
     "mypy>=2.1.0",
-    "ruff>=0.15.14",
+    "ruff>=0.15.15",
     "respx>=0.22.0",
     "pre-commit>=4.6.0",
-    "commitizen>=4.16.2",
+    "commitizen>=4.16.3",
 ]
 
 [project.urls]
