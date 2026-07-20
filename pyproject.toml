@@ -32,10 +32,10 @@ dev = [
     "pytest-asyncio>=1.4.0",
     "pytest-cov>=5.0.0",
     "mypy>=2.3.0",
-    "ruff>=0.15.21",
+    "ruff>=0.15.22",
     "respx>=0.22.0",
     "pre-commit>=4.6.0",
-    "commitizen>=4.16.4",
+    "commitizen>=4.16.5",
 ]
 
 [project.urls]
