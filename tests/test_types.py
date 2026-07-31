@@ -6,11 +6,14 @@ import pytest
 
 from cnpja.types import (
     CccDto,
+    CompanyDto,
     MemberDto,
+    OfficeCompanyDto,
     OfficeReadParams,
     OfficeSearchParams,
     OfficeSuframaDto,
     PersonDto,
+    PersonMemberCompanyDto,
     PersonMemberDto,
     RegistrationDto,
     RfbMemberDto,
@@ -44,7 +47,7 @@ class TestRelaxedNullableFields:
             {
                 "role": {"id": 49, "text": "Sócio"},
                 "company": {
-                    "id": 1,
+                    "id": "1",
                     "name": "X",
                     "equity": 0.0,
                     "nature": {"id": 2062, "text": "LTDA"},
@@ -92,6 +95,33 @@ class TestRelaxedNullableFields:
             }
         )
         assert c.updated is None
+
+
+class TestAlphanumericCompanyIdentifiers:
+    """Company roots are strings because new CNPJs may contain letters."""
+
+    company = {
+        "id": "12ABC345",
+        "name": "Empresa Alfanumérica",
+        "equity": 0.0,
+        "nature": {"id": 2062, "text": "Sociedade Empresária Limitada"},
+        "size": {"id": 1, "acronym": "ME", "text": "Microempresa"},
+    }
+
+    def test_office_company_accepts_alphanumeric_identifier(self) -> None:
+        company = OfficeCompanyDto.model_validate({**self.company, "members": []})
+
+        assert company.id == "12ABC345"
+
+    def test_company_accepts_alphanumeric_identifier(self) -> None:
+        company = CompanyDto.model_validate({**self.company, "members": [], "offices": []})
+
+        assert company.id == "12ABC345"
+
+    def test_person_membership_accepts_alphanumeric_company_identifier(self) -> None:
+        company = PersonMemberCompanyDto.model_validate(self.company)
+
+        assert company.id == "12ABC345"
 
 
 class TestEnumSerialization:

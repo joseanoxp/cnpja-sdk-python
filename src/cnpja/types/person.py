@@ -18,8 +18,8 @@ from .common import (
 class PersonMemberCompanyDto(BaseModel):
     """Informações da empresa da qual a pessoa é sócia."""
 
-    id: int
-    """Código da empresa (8 primeiros dígitos do CNPJ)."""
+    id: str
+    """Código da empresa (8 primeiros caracteres do CNPJ)."""
     name: str
     """Razão social."""
     jurisdiction: str | None = None

@@ -64,7 +64,7 @@ def _address(state: str = "SP", city: str = "São Paulo") -> dict[str, Any]:
 
 def _office_company(members: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     return {
-        "id": 37335118,
+        "id": "37335118",
         "name": "CNPJA TECNOLOGIA LTDA",
         "equity": 1000.0,
         "nature": {"id": 2062, "text": "Sociedade Empresária Limitada"},
@@ -114,7 +114,7 @@ def sample_office_page_record() -> dict[str, Any]:
 @pytest.fixture
 def sample_company() -> dict[str, Any]:
     return {
-        "id": 37335118,
+        "id": "37335118",
         "name": "CNPJA TECNOLOGIA LTDA",
         "equity": 1000.0,
         "nature": {"id": 2062, "text": "Sociedade Empresária Limitada"},

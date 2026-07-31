@@ -18,7 +18,7 @@ def _office_record(tax_id: str) -> dict[str, Any]:
         "taxId": tax_id,
         "updated": "2024-01-01T00:00:00.000Z",
         "company": {
-            "id": int(tax_id[:8]),
+            "id": tax_id[:8],
             "name": "X",
             "equity": 0.0,
             "nature": {"id": 2062, "text": "LTDA"},
