@@ -1,6 +1,6 @@
 [project]
 name = "cnpja"
-version = "1.0.0"
+version = "1.0.1"
 description = "SDK Python para a API CNPJá - Consulta de CNPJ, CPF e dados empresariais"
 readme = "README.md"
 license = "MIT"

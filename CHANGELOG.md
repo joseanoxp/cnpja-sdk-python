@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/joseanoxp/cnpja-sdk-python/compare/cnpja-v1.0.0...cnpja-v1.0.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **types:** support alphanumeric company identifiers ([#19](https://github.com/joseanoxp/cnpja-sdk-python/issues/19)) ([fe04a6f](https://github.com/joseanoxp/cnpja-sdk-python/commit/fe04a6faf7429658e4a68336289310db5d9f03e9))
+
 ## 1.0.0 (2026-04-19)
 
 
