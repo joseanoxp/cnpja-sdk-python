@@ -6,9 +6,10 @@ from typing import Any
 
 import pytest
 import respx
+from pydantic import ValidationError
 
 from cnpja import Client, NotFoundError
-from cnpja.types import CacheStrategy, OfficeDto, OfficeReadParams
+from cnpja.types import CacheStrategy, OfficeDto, OfficePageRecordDto, OfficeReadParams
 
 
 class TestOfficeRead:
@@ -57,6 +58,54 @@ class TestOfficeSearch:
         items = list(client.office.search({"address.state.in": ["SP"]}))
         assert len(items) == 1
         assert items[0].tax_id == "37335118000180"
+
+    def test_accepts_registrations_and_suframa_in_page_record(
+        self,
+        client: Client,
+        mock_api: respx.MockRouter,
+        sample_office_page_record: dict[str, Any],
+    ) -> None:
+        record = {
+            **sample_office_page_record,
+            "registrations": [
+                {
+                    "number": "110042490114",
+                    "state": "SP",
+                    "enabled": True,
+                    "statusDate": "2024-01-01",
+                    "status": {"id": 1, "text": "Ativa"},
+                    "type": {"id": 1, "text": "Normal"},
+                }
+            ],
+            "suframa": [
+                {
+                    "number": "200400029",
+                    "since": "2020-01-01",
+                    "approved": True,
+                    "approvalDate": "2020-02-01",
+                    "status": {"id": 1, "text": "Ativa"},
+                    "incentives": [],
+                }
+            ],
+        }
+        mock_api.get("/office").respond(
+            json={"next": None, "limit": 1, "count": 1, "records": [record]}
+        )
+
+        office = list(client.office.search({"address.state.in": ["SP"]}))[0]
+
+        assert office.registrations is not None
+        assert office.registrations[0].number == "110042490114"
+        assert office.suframa is not None
+        assert office.suframa[0].number == "200400029"
+
+    def test_still_rejects_unknown_page_record_fields(
+        self, sample_office_page_record: dict[str, Any]
+    ) -> None:
+        with pytest.raises(ValidationError, match="unexpectedField"):
+            OfficePageRecordDto.model_validate(
+                {**sample_office_page_record, "unexpectedField": "contract drift"}
+            )
 
 
 class TestOfficeBinary:
