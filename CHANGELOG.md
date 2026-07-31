@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/joseanoxp/cnpja-sdk-python/compare/cnpja-v1.0.1...cnpja-v1.0.2) (2026-07-31)
+
+
+### Bug Fixes
+
+* **office:** accept registration data in search results ([#21](https://github.com/joseanoxp/cnpja-sdk-python/issues/21)) ([3519266](https://github.com/joseanoxp/cnpja-sdk-python/commit/3519266530b79273f2ea2a3135531b77d0869389))
+
 ## [1.0.1](https://github.com/joseanoxp/cnpja-sdk-python/compare/cnpja-v1.0.0...cnpja-v1.0.1) (2026-07-31)
 
 
