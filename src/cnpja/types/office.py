@@ -142,6 +142,10 @@ class OfficePageRecordDto(BaseModel):
     """Informações da atividade econômica principal."""
     side_activities: list[ActivityDto]
     """Lista de atividades econômicas secundárias."""
+    registrations: list[RegistrationDto] | None = None
+    """Inscrições Estaduais retornadas na pesquisa, quando disponíveis."""
+    suframa: list[OfficeSuframaDto] | None = None
+    """Inscrições SUFRAMA retornadas na pesquisa, quando disponíveis."""
 
 
 class OfficePageDto(BaseModel):
