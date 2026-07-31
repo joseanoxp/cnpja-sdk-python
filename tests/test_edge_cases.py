@@ -95,7 +95,7 @@ def _minimal_record(tax_id: str) -> dict[str, object]:
         "taxId": tax_id,
         "updated": "2024-01-01",
         "company": {
-            "id": int(tax_id[:8]),
+            "id": tax_id[:8],
             "name": "X",
             "equity": 0.0,
             "nature": {"id": 2062, "text": "LTDA"},

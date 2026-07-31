@@ -18,7 +18,7 @@ class TestCompanyRead:
         mock_api.get("/company/37335118").respond(json=sample_company)
         company = client.company.read(37335118)
         assert isinstance(company, CompanyDto)
-        assert company.id == 37335118
+        assert company.id == "37335118"
         assert company.name == "CNPJA TECNOLOGIA LTDA"
 
     def test_sync_accepts_string_id(
@@ -26,7 +26,7 @@ class TestCompanyRead:
     ) -> None:
         mock_api.get("/company/37335118").respond(json=sample_company)
         company = client.company.read("37335118")
-        assert company.id == 37335118
+        assert company.id == "37335118"
 
     def test_sync_propagates_404(self, client: Client, mock_api: respx.MockRouter) -> None:
         mock_api.get("/company/99999999").respond(status_code=404, json={"message": "x"})
@@ -41,4 +41,4 @@ class TestCompanyRead:
         async with client.aio as aio:
             company = await aio.company.read(37335118)
         assert isinstance(company, CompanyDto)
-        assert company.id == 37335118
+        assert company.id == "37335118"

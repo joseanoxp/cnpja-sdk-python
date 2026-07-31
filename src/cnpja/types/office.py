@@ -44,8 +44,8 @@ class MemberDto(BaseModel):
 class OfficeCompanyDto(BaseModel):
     """Informações da empresa do estabelecimento."""
 
-    id: int
-    """Código da empresa (8 primeiros dígitos do CNPJ)."""
+    id: str
+    """Código da empresa (8 primeiros caracteres do CNPJ)."""
     name: str
     """Razão social."""
     jurisdiction: str | None = None
