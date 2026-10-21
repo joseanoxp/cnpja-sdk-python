@@ -11,6 +11,7 @@ from ._enums import (
     OfficeLinkType,
     PersonType,
     PhoneType,
+    SimplesEventRegime,
     State,
     SuframaTribute,
 )
@@ -176,6 +177,17 @@ class SimplesSimeiHistoryDto(BaseModel):
     """Motivo de encerramento."""
 
 
+class SimplesEventDto(BaseModel):
+    """Eventos futuros do regime regular do IBS e da CBS."""
+
+    regime: SimplesEventRegime | str
+    """Tributo do regime regular."""
+    from_: str | None = Field(None, alias="from")
+    """Data de efeito do evento."""
+    text: str | None = None
+    """Descrição do evento."""
+
+
 class SimplesSimeiDto(BaseModel):
     """Informações da opção pelo Simples Nacional ou enquadramento no MEI."""
 
@@ -185,6 +197,13 @@ class SimplesSimeiDto(BaseModel):
     """Data de inclusão no período vigente."""
     history: list[SimplesSimeiHistoryDto] | None = None
     """Histórico de períodos anteriores."""
+
+
+class SimplesNacionalDto(SimplesSimeiDto):
+    """Informações da opção pelo Simples Nacional."""
+
+    events: list[SimplesEventDto] | None = None
+    """Eventos futuros do regime regular do IBS e da CBS."""
 
 
 class RegistrationStatusDto(BaseModel):

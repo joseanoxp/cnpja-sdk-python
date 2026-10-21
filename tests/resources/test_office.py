@@ -6,7 +6,6 @@ from typing import Any
 
 import pytest
 import respx
-from pydantic import ValidationError
 
 from cnpja import Client, NotFoundError
 from cnpja.types import CacheStrategy, OfficeDto, OfficePageRecordDto, OfficeReadParams
@@ -99,13 +98,14 @@ class TestOfficeSearch:
         assert office.suframa is not None
         assert office.suframa[0].number == "200400029"
 
-    def test_still_rejects_unknown_page_record_fields(
+    def test_ignores_unknown_page_record_fields(
         self, sample_office_page_record: dict[str, Any]
     ) -> None:
-        with pytest.raises(ValidationError, match="unexpectedField"):
-            OfficePageRecordDto.model_validate(
-                {**sample_office_page_record, "unexpectedField": "contract drift"}
-            )
+        record = OfficePageRecordDto.model_validate(
+            {**sample_office_page_record, "unexpectedField": "contract drift"}
+        )
+        assert record.tax_id == sample_office_page_record["taxId"]
+        assert not hasattr(record, "unexpectedField")
 
 
 class TestOfficeBinary:

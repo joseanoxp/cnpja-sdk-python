@@ -11,13 +11,13 @@ class BaseModel(pydantic.BaseModel):
     """Modelo base para DTOs de resposta.
 
     Converte automaticamente snake_case ↔ camelCase na serialização JSON
-    e rejeita campos desconhecidos (contrato estrito com a API).
+    e ignora campos adicionais desconhecidos (tolerância a adições retrocompatíveis da API).
     """
 
     model_config = ConfigDict(
         alias_generator=to_camel,
         populate_by_name=True,
-        extra="forbid",
+        extra="ignore",
         from_attributes=True,
     )
 

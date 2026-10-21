@@ -30,7 +30,7 @@ Python SDK for the CNPJá API (CNPJ, CPF, and Brazilian business data). Distribu
 - `from __future__ import annotations` at top of every `.py` file
 - Use `uv run` for all Python commands, never `pip` or `python` directly
 - `AsyncPager.page()` is a **method**, not a property — call `await pager.page()` with parentheses. Never decorate an `async def` with `@property` (anti-pattern in Python).
-- `BaseModel` uses `extra="forbid"` (strict DTOs). `BaseParams` uses `extra="allow"` and `use_enum_values=True` (serializes enums by value in query params).
+- `BaseModel` uses `extra="ignore"` (resilient DTOs tolerant to additive upstream API changes). `BaseParams` uses `extra="allow"` and `use_enum_values=True` (serializes enums by value in query params).
 
 ## Git Conventions
 

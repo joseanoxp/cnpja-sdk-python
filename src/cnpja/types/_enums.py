@@ -146,3 +146,10 @@ class CacheStrategy(str, Enum):
     CACHE_IF_FRESH = "CACHE_IF_FRESH"
     CACHE_IF_ERROR = "CACHE_IF_ERROR"
     CACHE = "CACHE"
+
+
+class SimplesEventRegime(str, Enum):
+    """Tributo do regime regular do Simples Nacional (Reforma Tributária)."""
+
+    IBS = "IBS"
+    CBS = "CBS"
