@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from .._common import BaseModel, BaseParams
 from ._enums import CacheStrategy
-from .common import SimplesSimeiDto
+from .common import SimplesNacionalDto, SimplesSimeiDto
 
 
 class SimplesDto(BaseModel):
@@ -14,7 +14,7 @@ class SimplesDto(BaseModel):
     """Número do CNPJ sem pontuação."""
     updated: str
     """Data da última atualização."""
-    simples: SimplesSimeiDto
+    simples: SimplesNacionalDto
     """Informações da opção pelo Simples Nacional."""
     simei: SimplesSimeiDto
     """Informações do enquadramento no MEI."""

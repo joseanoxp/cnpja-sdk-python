@@ -24,6 +24,7 @@ from .common import (
     PhoneDto,
     RegistrationDto,
     RoleDto,
+    SimplesNacionalDto,
     SimplesSimeiDto,
 )
 
@@ -56,7 +57,7 @@ class OfficeCompanyDto(BaseModel):
     """Informações da natureza jurídica."""
     size: CompanySizeDto
     """Informações do porte."""
-    simples: SimplesSimeiDto | None = None
+    simples: SimplesNacionalDto | None = None
     """Informações da opção pelo Simples Nacional."""
     simei: SimplesSimeiDto | None = None
     """Informações do enquadramento no MEI."""
