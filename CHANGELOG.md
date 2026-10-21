@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/joseanoxp/cnpja-sdk-python/compare/cnpja-v1.0.2...cnpja-v1.0.3) (2026-10-21)
+
+
+### Bug Fixes
+
+* **types:** support SimplesNacionalDto events and ignore extra fields on BaseModel ([#26](https://github.com/joseanoxp/cnpja-sdk-python/issues/26)) ([09044ad](https://github.com/joseanoxp/cnpja-sdk-python/commit/09044adad55927402a315261db73ffddd8ab07ad))
+
 ## [1.0.2](https://github.com/joseanoxp/cnpja-sdk-python/compare/cnpja-v1.0.1...cnpja-v1.0.2) (2026-07-31)
 
 
