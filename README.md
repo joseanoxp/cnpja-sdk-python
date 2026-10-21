@@ -72,10 +72,12 @@ with Client(api_key="sua-api-key") as client:
 
 ```python
 # Pesquisa empresas ativas em SP
-for office in client.office.search({
-    "address.state.in": ["SP"],
-    "status.id.in": [2],  # Ativas
-}):
+for office in client.office.search(
+    {
+        "address.state.in": ["SP"],
+        "status.id.in": [2],  # Ativas
+    }
+):
     print(f"{office.tax_id}: {office.company.name}")
 ```
 
@@ -85,6 +87,7 @@ for office in client.office.search({
 import asyncio
 from cnpja import Client
 
+
 async def main():
     client = Client(api_key="sua-api-key")
 
@@ -93,6 +96,7 @@ async def main():
         print(f"Empresa: {office.company.name}")
 
     client.close()
+
 
 asyncio.run(main())
 ```
@@ -194,10 +198,7 @@ with open("rua.png", "wb") as f:
 
 ```python
 # Criar lista
-lista = client.list.create({
-    "title": "Fornecedores",
-    "items": ["37335118000180", "00000000000191"]
-})
+lista = client.list.create({"title": "Fornecedores", "items": ["37335118000180", "00000000000191"]})
 
 # Listar todas
 for lista in client.list.search():
@@ -241,11 +242,13 @@ params = types.OfficeReadParams(
 office = client.office.read(params)
 
 # Ou usando dicionários (também validados)
-office = client.office.read({
-    "tax_id": "37335118000180",
-    "strategy": "CACHE_IF_FRESH",
-    "simples": True,
-})
+office = client.office.read(
+    {
+        "tax_id": "37335118000180",
+        "strategy": "CACHE_IF_FRESH",
+        "simples": True,
+    }
+)
 ```
 
 ## Configuração
@@ -254,9 +257,9 @@ office = client.office.read({
 client = Client(
     api_key="sua-api-key",
     base_url="https://api.cnpja.com",  # URL base (padrão)
-    timeout=30.0,                       # Timeout em segundos
-    retry_limit=3,                      # Tentativas em caso de erro
-    headers={"X-Custom": "value"},      # Headers adicionais
+    timeout=30.0,  # Timeout em segundos
+    retry_limit=3,  # Tentativas em caso de erro
+    headers={"X-Custom": "value"},  # Headers adicionais
 )
 ```
 
